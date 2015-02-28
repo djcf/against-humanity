@@ -1,0 +1,8 @@
+TODO
+
+done /questions/ask -> Add POST input to a database
+/questions/get -> Get a question from the database. By default, get a random question.
+
+Add output of Question->Ask into homepage.jade text form
+
+Style the homepage.
