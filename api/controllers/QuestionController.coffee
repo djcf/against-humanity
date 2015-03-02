@@ -10,19 +10,18 @@ module.exports =
 		console.log "New question '#{params.wording}'"
 		Question.create(wording: params.wording).exec (err, created) ->
 			unless err?
-				req.flash "You asked, '#{created.wording}'"
+				FlashService.success(req, "You asked, '#{created.wording}'")
 				res.redirect "/questions/answer"
 			else @handleError err
 
 	# GET method -- will send the user the right form to POST to QuestionController.create.
 	# Retrieve a highly-rated question as an example
 	new: (req, res) ->
-		Question.getRandomQuestion(null, (err, the_q) ->
+		Question.getRandomQuestion(null, (err, theQuestion) ->
 			unless err?
 				res.view "pages/homepage", 
 					title: "Ask a question"
-					example_q: "With what do I laugh in the face of physics?" #TODO: Delete me.
-					#example_q: the_q.wording
+					example_question: theQuestion.wording
 			else
 				@handleError err
 		)
@@ -33,12 +32,12 @@ module.exports =
 	answer: (req, res) ->
 		async.parallel([
 			(callback) -> 
-				Question.getRandomQuestion(null, (err, the_question) ->
-					callback(err, the_question)		
+				Question.getRandomQuestion(null, (err, theQuestion) ->
+					callback(err, theQuestion)		
 				)
 			(callback) ->
-				Answer.getRandomAnswer(null, (err, the_answer) ->
-					callback(err, the_answer)
+				Answer.getRandomAnswer(null, (err, theAnswer) ->
+					callback(err, theAnswer)
 				)]
 			(err, results) ->
 				unless err?
@@ -54,5 +53,5 @@ module.exports =
 
 	handleError: (err) ->
 		console.log "ERROR: '#{err}"
-		req.flash = err: err
+		FlashService.error(req, err)
 		res.view @getCurrentPage
