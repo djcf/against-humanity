@@ -1,0 +1,9 @@
+extends ../layouts/splash.jade
+
+block content
+    #main
+      include ../includes/messages.jade
+      h3= the_question
+      form(action='/questions/answer',method='post')
+        input(name='question_id', id='question_id', type='hidden' value="#{the_questions_id}")
+        input(name='wording', id='question', type='text', placeholder='e.g., "#{example_answer}"')
