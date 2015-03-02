@@ -10,8 +10,10 @@ module.exports =
     wording:
       type: 'string'
       required: true
-      #contains: "?"
       #unique: true
+    answers:
+      collection: 'answer'
+      via: 'question'
 
   # taken from: https://gist.github.com/robwormald/d4ce538e8ba8a6d87bfc
   getRandomInt: (min, max) ->

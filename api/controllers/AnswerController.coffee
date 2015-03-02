@@ -7,10 +7,10 @@ module.exports =
 	create: (req, res) ->
 		params = req.params.all()
 		console.log "New answer '#{params.wording}'"
-		Answer.create(wording: params.wording).exec (err, created) ->
+		Answer.create(wording: params.wording, question: params.question_id).exec (err, created) ->
 			unless err?
 				req.flash "You asked, '#{created.wording}'"
-				res.redirect "AnswerController.create"
+				res.redirect "/questions/answer"
 			if err
 				console.log err;
 				req.flash = err: err

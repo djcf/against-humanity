@@ -22,20 +22,7 @@
 
 module.exports.routes = {
 
-  /***************************************************************************
-  *                                                                          *
-  * Make the view located at `views/homepage.ejs` (or `views/homepage.jade`, *
-  * etc. depending on your default view engine) your home page.              *
-  *                                                                          *
-  * (Alternatively, remove this and add an `index.html` file in your         *
-  * `assets` directory)                                                      *
-  *                                                                          *
-  ***************************************************************************/
-
-  '/': {
-    view: 'homepage'
-  },
-
+  '/': "QuestionController.new",
 
   /***************************************************************************
   *                                                                          *
@@ -47,10 +34,10 @@ module.exports.routes = {
   *                                                                          *
   ***************************************************************************/
 
-  'get /questions/ask': 'QuestionController.create',
+  'get /questions/ask': 'QuestionController.new',
   'post /questions/ask': 'QuestionController.create',
   'get /questions/answer': 'QuestionController.answer',
 
-  //'post /questions/answer': 'AnswerController.create',
+  'post /questions/answer': 'AnswerController.create',
 
 };
