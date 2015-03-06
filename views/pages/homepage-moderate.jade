@@ -1,0 +1,16 @@
+extends ../layouts/splash.jade
+
+block append stylesheets
+  link(href='/styles/variables/colours-low.css', rel='stylesheet', type='text/css')
+
+block content
+    #main
+      include ../includes/sessionflash.jade
+      h4 Choose the best answer for your original question.
+      h3= the_question.wording
+      form(action='/questions/choose-answer',method='post')
+        each answer,index in possible_answers
+          div.possible_answer
+            input(name='best_answer', id='answer#{index}', type='radio', value='#{answer.id}')
+            label(for='#{answer.id}')= answer.wording
+        input(name='submit', id='submitBtn', type='submit', value='Choose')

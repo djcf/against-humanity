@@ -1,0 +1,11 @@
+if messages
+  ul
+  if messages.notify
+    each message in messages.notify
+      li= message
+  if messages.warning
+    each message in messages.warning
+      li= message
+  if messages.error
+    each message in messages.error
+      li= message
