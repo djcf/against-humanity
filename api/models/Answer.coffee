@@ -10,16 +10,32 @@ module.exports =
     wording:
       type: 'string'
       required: true
-    question: 
+    question:
       model: 'question'
+    bestAnswer: # Is this answer the best answer as chosen by the user who asked the question?
+      type: 'boolean'
+      defaultsTo: false
+#    votes: # Not implemented yet
+#     type: 'integer'
+#     defaultsTo: false
 
-  # taken from: https://gist.github.com/robwormald/d4ce538e8ba8a6d87bfc
-  getRandomInt: (min, max) ->
-    Math.floor(Math.random() * (max - min)) + min
-
-  getRandomAnswer: (options, cb) ->
+  getOneRandomAnswer: (options, cb) ->
     Answer.count().then (count) ->
       Answer.find(
-        skip: Answer.getRandomInt(0, count)
+        skip: RandomService.getRandomInt(0, count)
         limit: 1
       ).exec((err, recs) -> cb(err, recs[0]))
+
+  getRandomAnswers: (number, cb) ->
+    count = 0
+    Results = Array(number)
+    async.until(
+      -> (count == number)
+      (callback) -> #call callback when this fn completes
+        Answer.getOneRandomAnswer(null, (err, record) -> 
+          Results.push record
+          callback err
+        )
+        count++
+      (err) -> cb(err, Results)
+    )

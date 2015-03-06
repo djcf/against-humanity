@@ -7,6 +7,6 @@ block content
     #main
       h1 Ask a question.
       h2 (Make sure it's funny.)
-      include ../includes/messages.jade
+      include ../includes/sessionflash.jade
       form(action='/questions/ask',method='post')
         input(name='wording', id='question', type='text', placeholder='e.g., #{example_question}')

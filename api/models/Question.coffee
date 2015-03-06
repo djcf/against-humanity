@@ -15,13 +15,9 @@ module.exports =
       collection: 'answer'
       via: 'question'
 
-  # taken from: https://gist.github.com/robwormald/d4ce538e8ba8a6d87bfc
-  getRandomInt: (min, max) ->
-    Math.floor(Math.random() * (max - min)) + min
-
-  getRandomQuestion: (options, cb) ->
+  getOneRandomQuestion: (options, cb) ->
     Question.count().then (count) ->
       Question.find(
-        skip: Question.getRandomInt(0, count)
+        skip: RandomService.getRandomInt(0, count)
         limit: 1
       ).exec((err, recs) -> cb(err, recs[0]))

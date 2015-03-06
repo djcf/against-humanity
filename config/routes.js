@@ -36,8 +36,11 @@ module.exports.routes = {
 
   'get /questions/ask': 'QuestionController.new',
   'post /questions/ask': 'QuestionController.create',
-  'get /questions/answer': 'QuestionController.answer',
 
+  'get /questions/answer': 'AnswerController.new',
   'post /questions/answer': 'AnswerController.create',
+
+  'get /questions/choose-answer': 'AnswerController.moderate',
+  'post /questions/choose-answer': 'AnswerController.saveBestAnswer'
 
 };

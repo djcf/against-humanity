@@ -1,6 +1,6 @@
 module.exports =
-  success: (req, message) ->
-    req.session.messages['success'].push message
+  notify: (req, message) ->
+    req.session.messages['notify'].push message
     return
   warning: (req, message) ->
     req.session.messages['warning'].push message

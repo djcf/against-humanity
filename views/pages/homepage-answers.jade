@@ -1,9 +1,13 @@
 extends ../layouts/splash.jade
 
+block append stylesheets
+  link(href='/styles/variables/colours-low.css', rel='stylesheet', type='text/css')
+
 block content
     #main
-      include ../includes/messages.jade
+      include ../includes/sessionflash.jade
       h3= the_question
       form(action='/questions/answer',method='post')
-        input(name='question_id', id='question_id', type='hidden' value="#{the_questions_id}")
         input(name='wording', id='question', type='text', placeholder='e.g., "#{example_answer}"')
+        input(name='question_id', id='question_id', type='hidden', value="#{the_questions_id}")
+        input(name='the_question', id='the_question', type='hidden', value="#{the_question}")

@@ -14,6 +14,8 @@
  * 		https://github.com/gruntjs/grunt-contrib-copy
  */
 module.exports = function(grunt) {
+	//grunt.file.delete('../.tmp/localDiskDb.db');
+	//grunt.file.copy('../.tmp/localDiskDb.db.new', '../.tmp/localDiskDb.db');
 
 	grunt.config.set('copy', {
 		dev: {
@@ -33,6 +35,5 @@ module.exports = function(grunt) {
 			}]
 		}
 	});
-
 	grunt.loadNpmTasks('grunt-contrib-copy');
 };

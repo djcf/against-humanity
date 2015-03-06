@@ -1,8 +1,11 @@
 TODO
 
-done /questions/ask -> Add POST input to a database
-/questions/get -> Get a question from the database. By default, get a random question.
+BUGS: 
+-Either answers dont save to the right question, or the session flash message gets given the wrong question
+-Answer counting function is broken, users never get asked to moderate
+-Write POST endpoint for answer moderation then redirect to /questions/ask(.new)
 
-Add output of Question->Ask into homepage.jade text form
-
-Style the homepage.
+TODO:
+Then -Add .json responses
+-Make Angular load into the browser
+-Rewrite front-end for angular
