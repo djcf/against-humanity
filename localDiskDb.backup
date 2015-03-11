@@ -1,0 +1,268 @@
+{
+  "data": {
+    "answer": [
+      {
+        "wording": "My sixteen-year-old self",
+        "id": 1,
+        "createdAt": "2015-03-02T03:02:32.838Z",
+        "updatedAt": "2015-03-02T03:02:32.838Z"
+      },
+      {
+        "wording": "Your eyeballs, nose and face.",
+        "id": 2,
+        "createdAt": "2015-03-02T03:03:55.020Z",
+        "updatedAt": "2015-03-02T03:03:55.020Z"
+      },
+      {
+        "wording": "Doctor Emett Brown's smoking time machine.",
+        "id": 3,
+        "createdAt": "2015-03-02T03:04:17.480Z",
+        "updatedAt": "2015-03-11T23:40:00.481Z"
+      },
+      {
+        "wording": "An unlimited number of rabid monkeys hacking madly at the decaying remnants of an infinite number of 1955-series IBM mechanical typewriters.",
+        "id": 4,
+        "createdAt": "2015-03-11T23:31:43.476Z",
+        "updatedAt": "2015-03-11T23:31:43.476Z"
+      },
+      {
+        "wording": "An unfathomably vast set of matching, hand-painted Matrioshka dolls.",
+        "id": 5,
+        "createdAt": "2015-03-11T23:31:44.970Z",
+        "updatedAt": "2015-03-11T23:31:44.970Z"
+      },
+      {
+        "wording": "A hot, living, beating engine formed from the icy-cold remnants of a long-dead star.",
+        "id": 6,
+        "createdAt": "2015-03-11T23:31:47.376Z",
+        "updatedAt": "2015-03-11T23:31:47.376Z"
+      },
+      {
+        "wording": "The entire editorial staff of Charlie Hebdoe.",
+        "id": 7,
+        "createdAt": "2015-03-11T23:31:48.532Z",
+        "updatedAt": "2015-03-11T23:37:44.241Z"
+      },
+      {
+        "wording": "Where the wild things are.",
+        "question": 1,
+        "id": 8,
+        "createdAt": "2015-03-11T23:37:36.120Z",
+        "updatedAt": "2015-03-11T23:37:36.120Z"
+      },
+      {
+        "wording": "Spanking one out in secret to your mate's porno collection.",
+        "id": 9,
+        "createdAt": "2015-03-11T23:37:37.348Z",
+        "updatedAt": "2015-03-11T23:37:37.348Z"
+      },
+      {
+        "wording": "A moot point.",
+        "id": 10,
+        "createdAt": "2015-03-11T23:37:38.568Z",
+        "updatedAt": "2015-03-11T23:37:38.568Z"
+      },
+      {
+        "wording": "Rape culture.",
+        "id": 11,
+        "createdAt": "2015-03-11T23:37:39.846Z",
+        "updatedAt": "2015-03-11T23:37:39.846Z"
+      },
+      {
+        "wording": "Mephistopheles, Prince of Hell.",
+        "id": 12,
+        "createdAt": "2015-03-11T23:39:13.036Z",
+        "updatedAt": "2015-03-11T23:39:13.036Z"
+      },
+      {
+        "wording": "ISIS.",
+        "id": 13,
+        "createdAt": "2015-03-11T23:39:14.219Z",
+        "updatedAt": "2015-03-11T23:39:14.219Z"
+      },
+      {
+        "wording": "A government-created nanorobotsexbot epidemic.",
+        "id": 14,
+        "createdAt": "2015-03-11T23:39:15.170Z",
+        "updatedAt": "2015-03-11T23:39:15.170Z"
+      },
+      {
+        "wording": "Sympathy sex.",
+        "id": 15,
+        "createdAt": "2015-03-11T23:39:16.325Z",
+        "updatedAt": "2015-03-11T23:39:16.325Z"
+      },
+      {
+        "wording": "All of the terrible weapons of the patriarchy.",
+        "id": 16,
+        "createdAt": "2015-03-11T23:39:54.837Z",
+        "updatedAt": "2015-03-11T23:39:54.837Z"
+      },
+      {
+        "wording": "Inventing a time machine so you can have sex with yourself.",
+        "id": 17,
+        "createdAt": "2015-03-11T23:39:56.427Z",
+        "updatedAt": "2015-03-11T23:39:56.427Z"
+      },
+      {
+        "wording": "Things of great and extraordinary beauty.",
+        "id": 18,
+        "createdAt": "2015-03-11T23:39:57.313Z",
+        "updatedAt": "2015-03-11T23:39:57.313Z"
+      },
+      {
+        "wording": "Mao Tse Tung's personal barber.",
+        "id": 19,
+        "createdAt": "2015-03-11T23:39:58.236Z",
+        "updatedAt": "2015-03-11T23:39:58.236Z"
+      },
+      {
+        "wording": "The soft shucking sound of everything on Earth sliding softly away into space.",
+        "id": 20,
+        "createdAt": "2015-03-11T23:39:58.236Z",
+        "updatedAt": "2015-03-11T23:39:58.236Z"
+      },
+      {
+        "wording": "That smug feeling of self-satisfaction you get from tearing the badge off a brand-new BMW.",
+        "id": 21,
+        "createdAt": "2015-03-11T23:39:58.236Z",
+        "updatedAt": "2015-03-11T23:39:58.236Z"
+      },
+      {
+        "wording": "A Godseye-view of the world.",
+        "id": 22,
+        "createdAt": "2015-03-11T23:39:58.236Z",
+        "updatedAt": "2015-03-11T23:39:58.236Z"
+      },
+      {
+        "wording": "The Tragedy of Hamlet, Prince of Denmark.",
+        "id": 23,
+        "createdAt": "2015-03-11T23:39:58.236Z",
+        "updatedAt": "2015-03-11T23:39:58.236Z"
+      },
+      {
+        "wording": "The slings and arrows of outrageous fortune.",
+        "id": 24,
+        "createdAt": "2015-03-11T23:39:58.236Z",
+        "updatedAt": "2015-03-11T23:39:58.236Z"
+      },
+      {
+        "wording": "Some other, inferior card game.",
+        "id": 25,
+        "createdAt": "2015-03-11T23:39:58.236Z",
+        "updatedAt": "2015-03-11T23:39:58.236Z"
+      },
+      {
+        "wording": "Where the mice come from.",
+        "id": 26,
+        "createdAt": "2015-03-11T23:39:58.236Z",
+        "updatedAt": "2015-03-11T23:39:58.236Z"
+      },
+      {
+        "wording": "Some perspective.",
+        "id": 27,
+        "createdAt": "2015-03-11T23:39:58.236Z",
+        "updatedAt": "2015-03-11T23:39:58.236Z"
+      }
+    ],
+    "question": [
+      {
+        "wording": "With what do I laugh in the face of physics?",
+        "id": 1,
+        "createdAt": "2015-03-02T03:02:32.838Z",
+        "updatedAt": "2015-03-02T03:02:32.838Z"
+      },
+      {
+        "wording": "How did the inventer of the first clock tell the time?",
+        "id": 2,
+        "createdAt": "2015-03-02T03:41:52.912Z",
+        "updatedAt": "2015-03-02T03:41:52.912Z"
+      },
+      {
+        "wording": "____ is actually the third thing on Elon Musk's bucket list.",
+        "id": 3,
+        "createdAt": "2015-03-11T23:31:41.899Z",
+        "updatedAt": "2015-03-11T23:31:41.899Z"
+      },
+      {
+        "wording": "____ is today's 'White Man's Burden'.",
+        "id": 4,
+        "createdAt": "2015-03-11T23:32:08.153Z",
+        "updatedAt": "2015-03-11T23:32:08.153Z"
+      },
+      {
+        "wording": "The title of Stewart Lee's latest show.",
+        "id": 5,
+        "createdAt": "2015-03-11T23:37:34.964Z",
+        "updatedAt": "2015-03-11T23:37:34.964Z"
+      },
+      {
+        "wording": "Why?",
+        "byAuthor": "KsiAc4HS4tWXcysJJIrhtUETosx2UMld",
+        "createdAt": "2015-03-11T23:52:44.322Z",
+        "updatedAt": "2015-03-11T23:52:44.322Z",
+        "id": 6
+      }
+    ]
+  },
+  "schema": {
+    "answer": {
+      "wording": {
+        "type": "string"
+      },
+      "question": {
+        "type": "integer",
+        "model": "question",
+        "foreignKey": true,
+        "alias": "question"
+      },
+      "bestAnswer": {
+        "type": "boolean",
+        "defaultsTo": false
+      },
+      "byAuthor": {
+        "type": "string"
+      },
+      "id": {
+        "type": "integer",
+        "autoIncrement": true,
+        "primaryKey": true,
+        "unique": true
+      },
+      "createdAt": {
+        "type": "datetime"
+      },
+      "updatedAt": {
+        "type": "datetime"
+      }
+    },
+    "question": {
+      "wording": {
+        "type": "string"
+      },
+      "byAuthor": {
+        "type": "string"
+      },
+      "id": {
+        "type": "integer",
+        "autoIncrement": true,
+        "primaryKey": true,
+        "unique": true
+      },
+      "createdAt": {
+        "type": "datetime"
+      },
+      "updatedAt": {
+        "type": "datetime"
+      }
+    }
+  },
+  "counters": {
+    "answer": {
+      "id": 28
+    },
+    "question": {
+      "id": 7
+    }
+  }
+}
