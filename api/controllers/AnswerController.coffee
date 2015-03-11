@@ -34,12 +34,12 @@ module.exports =
   create: (req, res) ->
     params = req.params.all()
     console.log "New answer '#{params.wording}'"
-    Answer.create(wording: params.wording, question: params.question_id).exec (err, created) ->
+    Answer.create(wording: params.wording, question: params.question_id, byAuthor: req.sessionID).exec (err, created) ->
       unless err?
         req.session.questionsAnswered = (req.session.questionsAnswered ? 0) + 1 # initialize or increment the number of questions answered
         FlashService.notify(req, "'#{params.the_question}' You answered, '#{params.wording}'")
         sails.controllers.answer.new(req, res)
-      else @handleError req, err
+      else ErrorService.handleError(req, err, "/questions/answer")
 
   # Let the user pick the best answer for their question if it has more than some number of answers and if the user
   # has answered more than some number of questions.
@@ -49,16 +49,19 @@ module.exports =
     if not req.session.myQuestion? # We seemed to have managed to lose track of their original question. Just let them ask another, it'll be fine.
       console.log "We seem to have managed to lose track of their original question."
       res.redirect('/questions/ask')
-      cb false;
+      cb(false);
     else
-      # Find all [recently-added] answers for the users original question; store it in session.
-      Answer.count(question: req.session.myQuestion.id).exec((err, count) -> 
-        console.log "Number of answers for question id #{req.session.myQuestion.id}: #{count}. User has answered #{req.session.questionsAnswered} questions so far."
-        cb(
-          (req.session.questionsAnswered >= sails.config.appConfig.numberOfAnswersBeforeChoosingBest) and
-          (count >= sails.config.appConfig.minAnswersPerQuestion)
+      # Are we in single-user mode? If so, display moderate after user gives 4 answers regardless of the number of answer their question has had. (The AI will supply the rest.)
+      if sails.config.appConfig.singleUserMode
+        cb(req.session.questionsAnswered >= sails.config.appConfig.numberOfAnswersBeforeChoosingBest)
+      else # Not in single user mode so check that a) user has answered > 4 questions and b) > 4 answers exist for the user's original question.
+        Answer.count(question: req.session.myQuestion.id).exec((err, count) -> 
+          console.log "Number of answers for question id #{req.session.myQuestion.id}: #{count}. User has answered #{req.session.questionsAnswered} questions so far."
+          cb(
+            (req.session.questionsAnswered >= sails.config.appConfig.numberOfAnswersBeforeChoosingBest) and
+            (count >= sails.config.appConfig.minAnswersPerQuestion)
+          )
         )
-      )
 
   # GET method -- will send the user the form to POST to AnswerController.create
   # Retrieves one question at random from the database.
@@ -69,11 +72,11 @@ module.exports =
       unless readyToModerate
         async.parallel([
           (callback) -> 
-            Question.getOneRandomQuestion(null, (err, theQuestion) ->
+            Question.getOneRandomQuestion({ notByAuthor : req.sessionID }, (err, theQuestion) ->
               callback(err, theQuestion)    
             )
           (callback) ->
-            Answer.getOneRandomAnswer(null, (err, theAnswer) ->
+            Answer.getOneRandomAnswer( { notByAuthor : req.sessionID }, (err, theAnswer) ->
               callback(err, theAnswer)
             )]
           (err, results) ->
@@ -82,9 +85,8 @@ module.exports =
                 the_question: results[0].wording,
                 the_questions_id: results[0].id,
                 example_answer: results[1].wording,
-                questions_asked: req.session.questions_asked
-            else
-              @handleError req, err
+                questions_asked: req.session.questions_asked # ???
+            else ErrorService.handleError(req, err, "/questions/answer")
         )
       else
         # Apparently, they are ready to do the moderation thing.
@@ -95,15 +97,24 @@ module.exports =
   # Now we let the user choose the best answer for their question.
   moderate: (req, res) ->
     console.log "AnswerController.moderate"
+    displayAnswers = (err, question, answers) -> # Mini-function to call once we're actually done with the logic from this section.
+      unless err?
+        res.view "pages/homepage-moderate",
+          the_question: question.wording,
+          possible_answers: answers
+      else ErrorService.handleError(req, err, "/questions/answer")
+
     @isReadyToModerateQuestion(req, res, (readyToModerate) ->
       if readyToModerate
         Answer.find(question: req.session.myQuestion.id).exec((err, answers) ->
-          unless err?
-            res.view "pages/homepage-moderate",
-              the_question: req.session.myQuestion.wording,
-              possible_answers: answers
+          # If we're in single-user-mode we'll need to make up to the required number of answers by choosing randomly.
+          if sails.config.appConfig.singleUserMode
+            numberQuestionsToFind = sails.config.appConfig.minAnswersPerQuestion - answers.length
+            Answer.getRandomAnswers(numberQuestionsToFind, { notByAuthor: req.sessionID }, (errr, results) ->
+              displayAnswers(errr, req.session.myQuestion, RandomService.shuffle(answers.concat(results)) )
+            )
           else
-            @handleError req, err
+            displayAnswers(err, req.session.myQuestion, RandomService.shuffle(answers))
         )
       else
         FlashService.warning(req, "You need to answer some more questions before you can choose the best answers.")
@@ -112,16 +123,16 @@ module.exports =
 
   # POST -- saves the best answer for this question or (TODO: votes for this answer)
   saveBestAnswer: (req, res) ->
+    console.log "AnswerController.saveBestAnswer"
     params = req.params.all()
     Answer.update(
-      { id: params.best_answer },
+      { id: params.best_answer }, # { id: params.best_answer, question: req.session.myQuestion.id } # will be more secure.
       { bestAnswer: true }
-    ).exec(err, updated) ->
-      @handleError(req, err) if err?
-      req.session.myQuestion = null
-      res.redirect "/questions/ask"
-
-  handleError: (req, err) ->
-    console.log "ERROR: '#{err}"
-    FlashService.error(req, err)
-    res.redirect "/questions/answer"
+    ).exec((err, updated) ->
+      unless err?
+        req.session.myQuestion = null
+        req.session.questionsAnswered = 0
+        req.session.roundsCompleted = (req.session.roundsCompleted ? 0) + 1
+        res.redirect "/questions/ask"
+      else ErrorService.handleError(req, err, "/questions/answer")
+    )
