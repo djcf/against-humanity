@@ -7,7 +7,7 @@ block content
     #main
       include ../includes/sessionflash.jade
       h4 Choose the best answer for your original question.
-      h3= the_question.wording
+      h3= the_question
       form(action='/questions/choose-answer',method='post')
         each answer,index in possible_answers
           div.possible_answer

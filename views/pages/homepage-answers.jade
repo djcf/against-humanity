@@ -8,6 +8,6 @@ block content
       include ../includes/sessionflash.jade
       h3= the_question
       form(action='/questions/answer',method='post')
-        input(name='wording', id='question', type='text', placeholder='e.g., "#{example_answer}"')
+        textarea(name='wording', id='question', type='text', placeholder='e.g., "#{example_answer}"' class="expanding")
         input(name='question_id', id='question_id', type='hidden', value="#{the_questions_id}")
         input(name='the_question', id='the_question', type='hidden', value="#{the_question}")

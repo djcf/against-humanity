@@ -49,7 +49,6 @@ module.exports =
     if not req.session.myQuestion? # We seemed to have managed to lose track of their original question. Just let them ask another, it'll be fine.
       console.log "We seem to have managed to lose track of their original question."
       res.redirect('/questions/ask')
-      cb(false);
     else
       # Are we in single-user mode? If so, display moderate after user gives 4 answers regardless of the number of answer their question has had. (The AI will supply the rest.)
       if sails.config.appConfig.singleUserMode
