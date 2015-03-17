@@ -34,6 +34,7 @@ module.exports =
   create: (req, res) ->
     params = req.params.all()
     console.log "New answer '#{params.wording}'"
+    req.session.currentQuestion = null
     Answer.create(wording: params.wording, question: params.question_id, byAuthor: req.sessionID).exec (err, created) ->
       unless err?
         req.session.questionsAnswered = (req.session.questionsAnswered ? 0) + 1 # initialize or increment the number of questions answered
@@ -63,7 +64,7 @@ module.exports =
         )
 
   # GET method -- will send the user the form to POST to AnswerController.create
-  # Retrieves one question at random from the database.
+  # Retrieves one question at random from the database and an example answer.
   # TODO: Model should ensure that User did not ask the question, and has not answered it already.
   new: (req, res) ->
     console.log "AnswerController.new"
@@ -71,9 +72,13 @@ module.exports =
       unless readyToModerate
         async.parallel([
           (callback) -> 
-            Question.getOneRandomQuestion({ notByAuthor : req.sessionID }, (err, theQuestion) ->
-              callback(err, theQuestion)    
-            )
+            unless req.session.currentQuestion? # Prevent the user automaticly getting a different question by merely reloading the page.
+              Question.getOneRandomQuestion({ notByAuthor : req.sessionID }, (err, theQuestion) ->
+                req.session.currentQuestion = theQuestion
+                callback(err, theQuestion)
+              )
+            else
+              callback null, req.session.currentQuestion
           (callback) ->
             Answer.getOneRandomAnswer( { notByAuthor : req.sessionID }, (err, theAnswer) ->
               callback(err, theAnswer)
