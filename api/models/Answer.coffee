@@ -17,6 +17,9 @@ module.exports =
       defaultsTo: false
     byAuthor: # Stores sessionID
       type: 'string'
+    answerParts: # Stores number of parts of the answer for multipart answers
+      type: 'integer'
+      defaultsTo: 1
 #    author: # Not implemented yet
 #      model: 'user'
 #    votes: # (More is better) Not implemented yet
@@ -38,13 +41,39 @@ module.exports =
     )
 
   getOneRandomAnswer: (options, cb) ->
-    if options? and options.notByAuthor?
-      filter = options.notByAuthor
+    if not options?
+      options = { }
+      options.wasEmpty = true
+    if not options.notByAuthor?
+      options.notByAuthor = [ ]
     else
-      filter = ""
-    Answer.count(byAuthor: { '!' : [filter] }).then (count) ->
-      Answer.find(
-        byAuthor: { '!' : [filter] },
-        skip: RandomService.getRandomInt(0, count)
-        limit: 1
-      ).exec((err, recs) -> cb(err, recs[0]))
+      options.notByAuthor = [ options.notByAuthor ]
+    if not options.isNot?
+      options.isNot = [ ]
+
+    Answer.count(
+        byAuthor: { '!' : options.notByAuthor } # Don't forget to add the list.
+        id: { '!' : options.isNot }
+    ).then (numberOfAnswers) ->
+      if numberOfAnswers is 0 # We need to make sure we return *something* to prevent the programme from crashing.
+        if options.wasEmpty? # The database must be empty. Return a pre-programmed default and log the error. (Not strictly nessessary since the second pass will have an empty options array.)
+          cb(null, ErrorService.noMoreAnswers()) # We could decide to return an error here instead.
+        else # The database wasn't empty, we've just exhausted all possible options due to user intervention. Return any one at random since that's better than none at all.
+          # We'll just go thru this again with an empty options array. 
+          # Then have the callback pass the result to the callback.
+          Answer.getOneRandomAnswer(null, (err, theAnswer) -> cb(err, theAnswer))
+      else
+        Answer.find(
+          byAuthor: { '!' : options.notByAuthor }
+          id: { '!' : options.isNot }
+          skip: RandomService.getRandomInt(numberOfAnswers)
+          limit: 1
+        ).exec((err, recs) -> cb(err, recs[0]))
+
+  beforeValidate: (newAnswer, cb) ->
+    console.log "beforeValidate"
+    console.log newAnswer.wording
+    if newAnswer.wording instanceof Array
+      console.log "Was array of " + newAnswer.wording.length
+      newAnswer.answerParts = newAnswer.wording.length
+    cb()

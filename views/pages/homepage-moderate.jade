@@ -12,5 +12,5 @@ block content
         each answer,index in possible_answers
           div.possible_answer
             input(name='best_answer', id='answer#{index}', type='radio', value='#{answer.id}')
-            label(for='#{answer.id}')= answer.wording
-        input(name='submit', id='submitBtn', type='submit', value='Choose')
+            label(for='#{answer.id}') answer.wording
+        input(name='submit', id='submitBtn', type='submit', value='Choose', text='Choose')

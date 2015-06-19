@@ -7,7 +7,14 @@ block content
     #main
       include ../includes/sessionflash.jade
       h3= the_question
-      form(action='/questions/answer',method='post')
-        textarea(name='wording', id='question', type='text', placeholder='e.g., "#{example_answer}"' class="expanding")
-        input(name='question_id', id='question_id', type='hidden', value="#{the_questions_id}")
-        input(name='the_question', id='the_question', type='hidden', value="#{the_question}")
+      form(action='/questions/answer', method='post')
+        if (answer_parts > 1)
+          - var answerBoxes = 0
+          while (answerBoxes < answer_parts)
+            textarea(name='answer_wording_#{answerBoxes}', id='answer_#{answerBoxes}', type='text', class="expanding")
+            - answerBoxes++
+        else
+          textarea(name='wording', id='answer', type='text', placeholder='e.g., "#{example_answer}"' class="expanding")
+        input(name='question_id', id='question_id', type='hidden', value='#{the_questions_id}')
+        input(name='the_question', id='the_question', type='hidden', value='#{the_question}')
+        input(name='answer_parts', id='answer_parts', type='hidden', value='#{answer_parts}')

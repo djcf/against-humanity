@@ -3,15 +3,8 @@
 module.exports =
 
   # taken from: https://gist.github.com/robwormald/d4ce538e8ba8a6d87bfc
-  getRandomInt: (min, max) ->
+  getRandomInt: (max, min = 0) ->
     Math.floor(Math.random() * (max - min)) + min
-
-  # Mixes an { array } of arrays to shuffle.
-  # We generally want to mix an array of arrays containing items so concat them first.
-  mix: (stuff) ->
-    array = Array()
-    array.push(thing) for thing in stuff
-    return shuffle(array)
 
   # Actually shuffle the items now they are in one big array.
   # Using Fisher-Yates (Knuff) for unbiased, speedy-shuffling, via CS Cookbook
@@ -23,6 +16,7 @@ module.exports =
     for index in [array.length-1..1]
       # Choose random element `randomIndex` to the front of `index` to swap with.
       randomIndex = Math.floor Math.random() * (index + 1)
+      #randomIndex = RandomService.getRandomInt(index + 1)
       # Swap `randomIndex` with `index`, using destructured assignment
       [array[index], array[randomIndex]] = [array[randomIndex], array[index]]
     return array

@@ -33,6 +33,7 @@
 module.exports =
 	# POST method -- Verb to make a new brand-new question.
 	create: (req, res) ->
+		console.log "QuestionController.create"
 		params = req.params.all()
 		console.log "#{req.sessionID}: New question '#{params.wording}'"
 		Question.create({ wording: params.wording, byAuthor: req.sessionID }).exec (err, created) ->
@@ -45,15 +46,18 @@ module.exports =
 	# GET method -- will send the user the right form to POST to QuestionController.create.
 	# Retrieve a highly-rated question as an example
 	new: (req, res) ->
+		console.log "QuestionController.new"
 		if req.session.myQuestion? # Check that they don't already have a question in the queue. (Object must be nulled before restarting the Q/A loop.)
 			FlashService.notify(req, "Please answer some more questions before trying to answer another one.")
 			res.redirect "/questions/answer"
-		Question.getOneRandomQuestion( { notByAuthor : req.sessionID } , (err, theQuestion) ->
-			unless err?
-				res.view "pages/homepage", 
-					title: "Ask a question"
-					example_question: theQuestion.wording
-			else ErrorService.handleError(req, err, "/")
-		)
+		else 
+			Question.getOneRandomQuestion( { notByAuthor : req.sessionID, isNot : req.session.viewed.questions } , (err, theQuestion) ->
+				req.session.viewed.questions.push theQuestion.id
+				unless err?
+					res.view "pages/homepage", 
+						title: "Ask a question"
+						example_question: theQuestion.wording
+				else ErrorService.handleError(req, err, "/")
+			)
 
 	getCurrentPage: -> "/"  #TODO: switch view based on user logged in or not
